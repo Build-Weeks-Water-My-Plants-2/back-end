@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-    knex.schema.createTable('plant', tb => {
+    return knex.schema.createTable('plant', tb => {
         tb.increments(); //primary key
         tb.string('nickname', 255).notNullable();
         tb.string('species', 255);
