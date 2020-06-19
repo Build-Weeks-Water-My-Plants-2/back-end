@@ -1,0 +1,32 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Water_my_plants BW",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Weeks-Water-My-Plants-2/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Weeks-Water-My-Plants-2/back-end/issues"
+  },
+  "homepage": "https://github.com/Build-Weeks-Water-My-Plants-2/back-end#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.23.1",
+    "knex": "^0.21.1",
+    "knex-cleaner": "^1.3.0",
+    "sqlite3": "^4.2.0"
+  }
+}
