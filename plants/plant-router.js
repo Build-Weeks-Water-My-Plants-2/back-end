@@ -41,8 +41,22 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id;
 
-
-
+    router.get(id)
+        .then((plantsId) => {
+            if (plantsId) {
+                res.status(200).json(plantsId);
+            } else {
+                res.status(404).json({
+                    message: 'the ID provided does not match our records'
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                errMessage: 'Houston, we have a problem! Error while retrieving data'
+            });
+        })
 })
 
 //---PUT----
@@ -55,8 +69,28 @@ router.put('/:id', (req, res) => {
         last_watered_at: req.body.last_watered_at
     }
 
-
-
+    if (!changes) {
+        res.status(400).json({
+            message: 'Please fill all required fields'
+        });
+    } else {
+        plants.update(id, changes)
+            .then((updated) => {
+                if (updated) {
+                    res.status(201).json(changes);
+                } else {
+                    res.status(404).json({
+                        message: 'Plant was not found to update'
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                    errMessage: 'Houston, we have a problem! Plant could not be added'
+                });
+            })
+    }
 })
 
 //---DELETE----
