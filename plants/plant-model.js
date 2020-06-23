@@ -1,7 +1,4 @@
 const db = require('..data/db-config.js');
-const {
-    get
-} = require('../users/user-router');
 
 module.exports = {
     find,
