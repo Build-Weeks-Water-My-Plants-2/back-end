@@ -13,10 +13,14 @@ The description of the structure and extra information about each _Plant_ stored
 | id           | integer   | Primary Key          |
 | username     | string    | required and unique. |
 | password     | string    | required field.      |
-| phone_number | string    | required field.      |
+| phone_number | string    | (optional).          |
 | avatar_url   | string    | (optional).          |
 
 ## Authentication
+
+The `/auth/login` and `/auth/register` endpoints will respond with a JSON object containing your JWT in the property `token`.
+
+To authorize your requests to the `/users` and `/plants` endpoints, set the HTTP header `Authorization` to `Basic $INSERT_YOUR_JWT`.
 
 ### API
 
@@ -45,11 +49,11 @@ Test Account - stored in seeds data.
 | --------------- | --------- | -------------------------------------------------------- |
 | id              | integer   | Primary Key                                              |
 | nickname        | string    | required field.                                          |
-| species         | string    | required field.                                          |
-| h2O_frequency   | integer   | required field.                                          |
-| avatar_url      | string    | (optional)                                               |
+| species         | string    | (optional).                                              |
+| h2O_frequency   | integer   | (optional).                                              |
+| avatar_url      | string    | (optional).                                              |
 | happiness       | boolean   | To indicate if plant is happy or not (default to false). |
-| last_watered_at | date      | Add date plant was last watered. (required field)        |
+| last_watered_at | date      | Add date plant was last watered. (optional)              |
 | user_id         | integer   | Foreign Key. Field that links the user and plant entry   |
 
 ### API
@@ -75,5 +79,5 @@ Test information - stored in seeds data.
 | GET    | /plants     | Retrieves plants data.                                                         |
 | GET    | /plants/:id | Retrieves a plant data given an id.                                            |
 | POST   | /plants/    | Creates a new plant entry (refer to plant schema for required fields to entry) |
-| PUT    | /plants/:id | Update a plant entry given an id.(value required)                              |
-| DELETE | /plants/:id | Delete a plant entry given and id (value required)                             |
+| PUT    | /plants/:id | Update a plant entry given an id. (value required)                             |
+| DELETE | /plants/:id | Delete a plant entry given and id.
