@@ -32,12 +32,12 @@ Test Account - stored in seeds data.
 
 ### Endpoints
 
-| TYPE | Path           | Metadata                                       |
-| ---- | -------------- | ---------------------------------------------- |
-| POST | /api/auth      | Register a new user.                           |
-| POST | /api/users     | User login in to Account.                      |
-| GET  | /api/users/:id | User login in to Account once account created. |
-| PUT  | /api/users/:id | Update user account                            |
+| TYPE | Path       | Metadata                                       |
+| ---- | ---------- | ---------------------------------------------- |
+| POST | /auth      | Register a new user.                           |
+| POST | /users     | User login in to Account.                      |
+| GET  | /users/:id | User login in to Account once account created. |
+| PUT  | /users/:id | Update user account                            |
 
 ## Plants Schema
 
@@ -70,10 +70,10 @@ Test information - stored in seeds data.
 
 ### Endpoints
 
-| TYPE   | Path            | Metadata                                                                       |
-| ------ | --------------- | ------------------------------------------------------------------------------ |
-| GET    | /api/plants     | Retrieves plants data.                                                         |
-| GET    | /api/plants/:id | Retrieves a plant data given an id.                                            |
-| POST   | /api/plants/    | Creates a new plant entry (refer to plant schema for required fields to entry) |
-| PUT    | /api/plants/:id | Update a plant entry given an id.(value required)                              |
-| DELETE | /api/plants/:id | Delete a plant entry given and id (value required)                             |
+| TYPE   | Path        | Metadata                                                                       |
+| ------ | ----------- | ------------------------------------------------------------------------------ |
+| GET    | /plants     | Retrieves plants data.                                                         |
+| GET    | /plants/:id | Retrieves a plant data given an id.                                            |
+| POST   | /plants/    | Creates a new plant entry (refer to plant schema for required fields to entry) |
+| PUT    | /plants/:id | Update a plant entry given an id.(value required)                              |
+| DELETE | /plants/:id | Delete a plant entry given and id (value required)                             |
