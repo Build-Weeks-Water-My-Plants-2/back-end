@@ -73,7 +73,7 @@ Test information - stored in seeds data.
 | TYPE   | Path            | Metadata                                                                       |
 | ------ | --------------- | ------------------------------------------------------------------------------ |
 | GET    | /api/plants     | Retrieves plants data.                                                         |
-| GET    | /api/plants/:id | Retrieves a plant data given an id. id                                         |
+| GET    | /api/plants/:id | Retrieves a plant data given an id.                                            |
 | POST   | /api/plants/    | Creates a new plant entry (refer to plant schema for required fields to entry) |
 | PUT    | /api/plants/:id | Update a plant entry given an id.(value required)                              |
 | DELETE | /api/plants/:id | Delete a plant entry given and id (value required)                             |
