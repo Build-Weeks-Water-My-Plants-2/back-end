@@ -32,12 +32,12 @@ Test Account - stored in seeds data.
 
 ### Endpoints
 
-| TYPE | Path       | Metadata                                       |
-| ---- | ---------- | ---------------------------------------------- |
-| POST | /auth      | Register a new user.                           |
-| POST | /users     | User login in to Account.                      |
-| GET  | /users/:id | User login in to Account once account created. |
-| PUT  | /users/:id | Update user account                            |
+| TYPE | Path           | Metadata                                       |
+| ---- | -------------- | ---------------------------------------------- |
+| POST | /auth/register | Register a new user.                           |
+| POST | /auth/login    | User login in to Account.                      |
+| GET  | /users/:id     | User login in to Account once account created. |
+| PUT  | /users/:id     | Update user account                            |
 
 ## Plants Schema
 
