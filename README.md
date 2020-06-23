@@ -27,7 +27,7 @@ To authorize your requests to the `/users` and `/plants` endpoints, set the HTTP
 Test Account - stored in seeds data.
 
 ```js
-    {
+        {
           id: 1,
           username: 'rowValue1',
           password: '123456'
