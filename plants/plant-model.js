@@ -1,4 +1,4 @@
-const db = require('..data/db-config.js');
+const db = require('../data/db-config.js');
 
 module.exports = {
     find,
@@ -21,12 +21,11 @@ function findById(id) {
 function add(plant) {
     db('plant').insert(plant)
         .then((ids) => {
-            const [ids] = ids;
-            return findById(ids);
+            return findById(ids[0]);
         })
-        .catch(err) {
-            console.log(err)
-        }
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 function update(id, changes) {
