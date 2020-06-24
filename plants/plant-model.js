@@ -8,8 +8,10 @@ module.exports = {
     remove
 }
 
-function find() {
-    return db('plant');
+function find(userId) {
+    return db('plant').where({
+        user_id: userId
+    });
 }
 
 function findById(id) {

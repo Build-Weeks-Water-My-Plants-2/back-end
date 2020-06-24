@@ -5,6 +5,7 @@ const router = require("express").Router();
 // ---POST----
 router.post('/', (req, res) => {
     const plantsData = {
+        user_id: req.decodedJwt.subject,
         nickname: req.body.nickname,
         species: req.body.species,
         h2O_frequency: req.body.h2O_frequency,
@@ -31,9 +32,9 @@ router.post('/', (req, res) => {
 
 // ----GET-----
 router.get('/', (req, res) => {
-    plants.findById(req.decodedJwt.subject)
-        .then(plant => {
-            res.status(200).json(plant[0]);
+    plants.find(req.decodedJwt.subject)
+        .then(plants => {
+            res.status(200).json(plants);
         });
 })
 
@@ -41,10 +42,10 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id;
 
-    router.get(id)
-        .then((plantsId) => {
-            if (plantsId) {
-                res.status(200).json(plantsId);
+    plants.findById(id)
+        .then(([plant]) => {
+            if (plant) {
+                res.status(200).json(plant);
             } else {
                 res.status(404).json({
                     message: 'the ID provided does not match our records'
