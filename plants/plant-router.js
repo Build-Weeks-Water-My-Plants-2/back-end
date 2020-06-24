@@ -31,10 +31,10 @@ router.post('/', (req, res) => {
 
 // ----GET-----
 router.get('/', (req, res) => {
-    plants.find()
+    plants.findById(req.decodedJwt.subject)
         .then(plant => {
-            res.status(200).json(plant);
-        })
+            res.status(200).json(plant[0]);
+        });
 })
 
 // ----GET----
