@@ -62,7 +62,7 @@ router.get('/:id', (req, res) => {
 
 //---PUT----
 router.put('/:id', (req, res) => {
-    const id = req.param.id;
+    const id = req.params.id;
     const changes = {
         nickname: req.body.nickname,
         species: req.body.species,
@@ -96,7 +96,7 @@ router.put('/:id', (req, res) => {
 
 //---DELETE----
 router.delete('/:id', (req, res) => {
-    const id = req.param.id;
+    const id = req.params.id;
 
     plants.remove(id)
         .then(deleted => {
