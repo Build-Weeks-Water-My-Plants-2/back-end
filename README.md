@@ -45,11 +45,7 @@ Test Account - stored in seeds data.
 
 ### Notes for iOS implementation
 
-For Post request, be sure to set
-
-```js
-request.setValue("application/json", (forHTTPHeaderField: "Content-Type"));
-```
+For Post request, be sure to set `request.setValue("application/json", (forHTTPHeaderField: "Content-Type"));`
 
 | TYPE | Path           | Metadata                                                        |
 | ---- | -------------- | --------------------------------------------------------------- |
