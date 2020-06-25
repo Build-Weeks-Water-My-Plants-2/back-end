@@ -37,7 +37,8 @@ router.post('/register', async (req, res) => {
       const token = generateToken(saved);
       res.status(201).json({data: saved, token});
     } catch (err) {
-      res.status(500).json(err);
+      console.log("registration error: ", err);
+      res.status(500).json(err.message);
     }
   }
 });

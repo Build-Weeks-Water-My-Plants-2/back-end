@@ -5,6 +5,7 @@ const router = require("express").Router();
 // ---POST----
 router.post('/', (req, res) => {
     const plantsData = {
+        user_id: req.decodedJwt.subject,
         nickname: req.body.nickname,
         species: req.body.species,
         h2O_frequency: req.body.h2O_frequency,
@@ -31,20 +32,20 @@ router.post('/', (req, res) => {
 
 // ----GET-----
 router.get('/', (req, res) => {
-    plants.find()
-        .then(plant => {
-            res.status(200).json(plant);
-        })
+    plants.find(req.decodedJwt.subject)
+        .then(plants => {
+            res.status(200).json(plants);
+        });
 })
 
 // ----GET----
 router.get('/:id', (req, res) => {
     const id = req.params.id;
 
-    router.get(id)
-        .then((plantsId) => {
-            if (plantsId) {
-                res.status(200).json(plantsId);
+    plants.findById(id)
+        .then((plant) => {
+            if (plant) {
+                res.status(200).json(plant);
             } else {
                 res.status(404).json({
                     message: 'the ID provided does not match our records'
@@ -61,7 +62,7 @@ router.get('/:id', (req, res) => {
 
 //---PUT----
 router.put('/:id', (req, res) => {
-    const id = req.param.id;
+    const id = req.params.id;
     const changes = {
         nickname: req.body.nickname,
         species: req.body.species,
@@ -77,7 +78,7 @@ router.put('/:id', (req, res) => {
         plants.update(id, changes)
             .then((updated) => {
                 if (updated) {
-                    res.status(201).json(changes);
+                    res.status(201).json(updated);
                 } else {
                     res.status(404).json({
                         message: 'Plant was not found to update'
@@ -95,7 +96,7 @@ router.put('/:id', (req, res) => {
 
 //---DELETE----
 router.delete('/:id', (req, res) => {
-    const id = req.param.id;
+    const id = req.params.id;
 
     plants.remove(id)
         .then(deleted => {
