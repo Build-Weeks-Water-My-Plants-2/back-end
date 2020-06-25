@@ -43,6 +43,15 @@ Test Account - stored in seeds data.
 | GET  | /users/:id     | User login in to Account once account created. |
 | PUT  | /users/:id     | Update user account                            |
 
+### Notes for iOS implementation
+
+For Post request, be sure to set `request.setValue("application/json", (forHTTPHeaderField: "Content-Type"));`
+
+| TYPE | Path           | Metadata                                                        |
+| ---- | -------------- | --------------------------------------------------------------- |
+| POST | /auth/register | Properties needed in the body are '`username`' and '`Password`' |
+| POST | /auth/login    | Properties needed in the body are '`username`' and '`Password`' |
+
 ## Plants Schema
 
 | Field           | Data Type | Metadata                                                 |
@@ -80,4 +89,4 @@ Test information - stored in seeds data.
 | GET    | /plants/:id | Retrieves a plant data given an id.                                            |
 | POST   | /plants/    | Creates a new plant entry (refer to plant schema for required fields to entry) |
 | PUT    | /plants/:id | Update a plant entry given an id. (value required)                             |
-| DELETE | /plants/:id | Delete a plant entry given and id.
+| DELETE | /plants/:id | Delete a plant entry given and id.                                             |
