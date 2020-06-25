@@ -8,8 +8,10 @@ module.exports = {
     remove
 }
 
-function find() {
-    return db('plant');
+function find(userId) {
+    return db('plant').where({
+        user_id: userId
+    });
 }
 
 function findById(id) {
@@ -19,9 +21,9 @@ function findById(id) {
 }
 
 function add(plant) {
-    db('plant').insert(plant)
-        .then((ids) => {
-            return findById(ids[0]);
+    return db('plant').insert(plant)
+        .then((plants) => {
+            return findById(plants[0]);
         })
         .catch((err) => {
             console.log(err);
@@ -32,7 +34,7 @@ function update(id, changes) {
     return db('plant')
         .where('id', id)
         .update(changes)
-        .then((count) => (count > 0 ? get(id) : null));
+        .then((count) => (count > 0 ? findById(id) : null));
 }
 
 function remove(id) {
