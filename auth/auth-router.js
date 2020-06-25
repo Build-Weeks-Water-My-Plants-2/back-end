@@ -21,6 +21,7 @@ function generateToken(user) {
 
 router.post('/register', async (req, res) => {
   const userData = req.body;
+  console.log('register body: ', req.body);
   let { username, password } = req.body;
 
   // make these middleware...

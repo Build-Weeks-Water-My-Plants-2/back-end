@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
     } else {
         plants.add(plantsData)
             .then((newPlant) => {
-                res.status(201).json(newPlant[0]);
+                res.status(201).json(newPlant);
             })
             .catch((err) => {
                 console.log(err);
@@ -43,7 +43,7 @@ router.get('/:id', (req, res) => {
     const id = req.params.id;
 
     plants.findById(id)
-        .then(([plant]) => {
+        .then((plant) => {
             if (plant) {
                 res.status(200).json(plant);
             } else {
@@ -78,7 +78,7 @@ router.put('/:id', (req, res) => {
         plants.update(id, changes)
             .then((updated) => {
                 if (updated) {
-                    res.status(201).json(updated[0]);
+                    res.status(201).json(updated);
                 } else {
                     res.status(404).json({
                         message: 'Plant was not found to update'

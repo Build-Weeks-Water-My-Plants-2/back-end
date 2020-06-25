@@ -17,7 +17,7 @@ function find(userId) {
 function findById(id) {
     return db('plant').where({
         id: id
-    });
+    }).first();
 }
 
 function add(plant) {
