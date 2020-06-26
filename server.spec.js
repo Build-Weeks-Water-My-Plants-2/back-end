@@ -23,8 +23,7 @@ describe('server.js', () => {
     await db('plant').truncate();
   });
 
-  describe('authentication', () => {
-  });
+  describe('authentication', () => {});
 
   describe('users', () => {
     describe('GET /users/:id', () => {
@@ -42,5 +41,32 @@ describe('server.js', () => {
   });
 
   describe('plants', () => {
+
+    let plantResponse = null;
+    let plantId = null;
+
+    beforeAll(async () => {
+      plantResponse = await request(server).post('/plants').set({
+        Authorization: token
+      }).send({
+        nickname: 'planty',
+        species: 'something'
+      })
+      plantId = plantResponse.body.id
+    })
+    //Test GET Plants
+    describe('GET /plants/:id', () => {
+      it('Should return OK status code 200', async () => {
+        console.log(plantId);
+        const expectedStatusCode = 200;
+        const response = await request(server).get('/plants/' + plantId).set({
+          Authorization: token
+        });
+        expect(response.status).toEqual(expectedStatusCode);
+      })
+    });
+
   });
+
+
 });
