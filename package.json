@@ -4,7 +4,7 @@
   "description": "Water_my_plants BW",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --watch",
+    "test": "cross-env NODE_ENV=testing jest --watchAll",
     "start": "node index.js",
     "server": "nodemon index.js"
   },
