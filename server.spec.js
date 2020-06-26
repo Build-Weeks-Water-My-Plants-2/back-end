@@ -24,6 +24,113 @@ describe('server.js', () => {
   });
 
   describe('authentication', () => {
+
+    describe('POST /auth/register', () => {
+
+      it('should return a Created status code', async () => {
+        const response = await request(server)
+          .post('/auth/register')
+          .send({
+            username: 'registerTest',
+            password: '123456'
+          });
+        expect(response.status).toEqual(201);
+      });
+
+      it('should return a user object', async () => {
+        const response = await request(server)
+          .post('/auth/register')
+          .send({
+            username: 'registerTest2',
+            password: '123456'
+          });
+        expect(response.body.data.username).toEqual("registerTest2");
+      });
+
+      it('should return a JWT', async () => {
+        const response = await request(server)
+          .post('/auth/register')
+          .send({
+            username: 'registerTest3',
+            password: '123456'
+          });
+        expect(typeof(response.body.token)).toEqual("string");
+      });
+
+      it('should return a 422 for blank username', async () => {
+        const response = await request(server)
+          .post('/auth/register')
+          .send({
+            username: '',
+            password: '123456'
+          });
+        expect(response.status).toEqual(422);
+      });
+
+      it('should return a 400 for missing username', async () => {
+        const response = await request(server)
+          .post('/auth/register')
+          .send({
+            password: '123456'
+          });
+        expect(response.status).toEqual(400);
+      });
+
+    });
+
+    describe('POST /auth/login', () => {
+      
+      it('should return a 200 status code', async () => {
+        const response = await request(server)
+          .post('/auth/login')
+          .send({
+            username: 'Nick',
+            password: '123456'
+          });
+        expect(response.status).toEqual(200);
+      });
+
+      it('should return a JWT', async () => {
+        const response = await request(server)
+          .post('/auth/login')
+          .send({
+            username: 'Nick',
+            password: '123456'
+          });
+        expect(typeof(response.body.token)).toEqual("string");
+      });
+
+      it('should return a 401 for the wrong password', async () => {
+        const response = await request(server)
+          .post('/auth/login')
+          .send({
+            username: 'Nick',
+            password: 'Wrong password'
+          });
+        expect(response.status).toEqual(401);
+      });
+
+      it('should return a 422 for blank username', async () => {
+        const response = await request(server)
+          .post('/auth/login')
+          .send({
+            username: '',
+            password: '123456'
+          });
+        expect(response.status).toEqual(422);
+      });
+
+      it('should return a 400 for missing username', async () => {
+        const response = await request(server)
+          .post('/auth/login')
+          .send({
+            password: '123456'
+          });
+        expect(response.status).toEqual(400);
+      });
+
+    });
+
   });
 
   describe('users', () => {
