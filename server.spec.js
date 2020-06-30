@@ -41,9 +41,18 @@ describe("server.js", () => {
         expect(response.body.data.username).toEqual("registerTest2");
       });
 
-      it("should return a JWT", async () => {
+      it("should NOT return the password hash", async () => {
         const response = await request(server).post("/auth/register").send({
           username: "registerTest3",
+          password: "123456",
+        });
+        expect(response.body.data.password).toBeUndefined();
+      });
+
+
+      it("should return a JWT", async () => {
+        const response = await request(server).post("/auth/register").send({
+          username: "registerTest4",
           password: "123456",
         });
         expect(typeof response.body.token).toEqual("string");
@@ -110,45 +119,47 @@ describe("server.js", () => {
   describe("users", () => {
     describe("GET /users/:id", () => {
       it("should return an OK status code", async () => {
-        const expectedStatusCode = 200;
         const response = await request(server)
           .get("/users/" + userId)
           .set({
             Authorization: token,
           });
-        expect(response.status).toEqual(expectedStatusCode);
+        expect(response.status).toEqual(200);
       });
 
       it("should return the username and user id", async () => {
-        const expectedUsername = "Nick";
-        const expectedId = 1;
         const response = await request(server)
           .get("/users/" + userId)
           .set({
             Authorization: token,
           });
-        expect(response.body.username).toEqual(expectedUsername);
-        expect(response.body.id).toEqual(expectedId);
+        expect(response.body.username).toEqual("Nick");
+        expect(response.body.id).toEqual(1);
+      });
+
+      it("should NOT return the password hash", async () => {
+        const response = await request(server)
+          .get("/users/" + userId)
+          .set({
+            Authorization: token,
+          });
+        expect(response.body.password).toBeUndefined();
       });
 
       it("should return 401 if no Authorization", async () => {
-        const expectedStatusCode = 401;
-        const expectedMessage = "Missing authorization header";
         const response = await request(server).get("/users/" + userId);
-        expect(response.status).toEqual(expectedStatusCode);
-        expect(response.body.message).toEqual(expectedMessage);
+        expect(response.status).toEqual(401);
+        expect(response.body.message).toEqual("Missing authorization header");
       });
 
       it("should return 401 if bad Authorization", async () => {
-        const expectedStatusCode = 401;
-        const expectedMessage = "Invalid Credentials";
         const response = await request(server)
           .get("/users/" + userId)
           .set({
             Authorization: "wrong token",
           });
-        expect(response.status).toEqual(expectedStatusCode);
-        expect(response.body.message).toEqual(expectedMessage);
+        expect(response.status).toEqual(401);
+        expect(response.body.message).toEqual("Invalid Credentials");
       });
     });
 
@@ -196,6 +207,18 @@ describe("server.js", () => {
         });
       });
 
+      it("should NOT return the password hash", async () => {
+        const response = await request(server)
+          .put("/users/" + putUserId)
+          .set({
+            Authorization: token,
+          })
+          .send({
+            phone_number: "999-9999",
+          });
+        expect(response.body.password).toBeUndefined();
+      });
+
       it("response should match the user in the db", async () => {
         const response = await request(server)
           .put("/users/" + putUserId)
@@ -206,6 +229,7 @@ describe("server.js", () => {
             phone_number: "987-6543",
           });
         const dbUser = await db("user").where({ id: putUserId }).first();
+        delete dbUser.password;
         expect(response.body).toMatchObject(dbUser);
       });
     });
@@ -230,7 +254,6 @@ describe("server.js", () => {
     //Test GET Plants
     describe("GET /plants/:id", () => {
       it("Should return OK status code 200", async () => {
-        console.log(plantId);
         const expectedStatusCode = 200;
         const response = await request(server)
           .get("/plants/" + plantId)
